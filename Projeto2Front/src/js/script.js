@@ -1,7 +1,16 @@
+/* ========================================
+   ProvedorHealth — JavaScript Principal
+   Carrinho com localStorage, Auth State
+   ======================================== */
 
-let carrinho = [];
+// === CARRINHO (localStorage) ===
+let carrinho = JSON.parse(localStorage.getItem('ph_carrinho')) || [];
 
+function salvarCarrinho() {
+    localStorage.setItem('ph_carrinho', JSON.stringify(carrinho));
+}
 
+// === ELEMENTOS ===
 const carrinhoBtn = document.getElementById('carrinhoBtn');
 const cartSidebar = document.getElementById('cartSidebar');
 const cartOverlay = document.getElementById('cartOverlay');
@@ -18,9 +27,16 @@ const header = document.getElementById('header');
 const scrollTopBtn = document.getElementById('scrollTop');
 const newsletterBtn = document.getElementById('newsletterBtn');
 const emailInput = document.getElementById('emailInput');
-const login = document.getElementById('login')
+const userBtn = document.getElementById('userBtn');
+const userDropdown = document.getElementById('userDropdown');
+const userName = document.getElementById('userName');
+const dropdownHeader = document.getElementById('dropdownHeader');
+const loginLink = document.getElementById('loginLink');
+const logoutBtn = document.getElementById('logoutBtn');
+const meusPedidos = document.getElementById('meusPedidos');
+const btnCheckout = document.getElementById('btnCheckout');
 
-
+// === CARRINHO: ABRIR / FECHAR ===
 function abrirCarrinho() {
     cartSidebar.classList.add('open');
     cartOverlay.classList.add('open');
@@ -36,9 +52,8 @@ function fecharCarrinho() {
 carrinhoBtn.addEventListener('click', abrirCarrinho);
 cartClose.addEventListener('click', fecharCarrinho);
 cartOverlay.addEventListener('click', fecharCarrinho);
-loginBtn.addEventListener('click',)
 
-
+// === CARRINHO: ADICIONAR ITEM ===
 function adicionarItem(nome, preco) {
     const existente = carrinho.find(item => item.nome === nome);
     if (existente) {
@@ -46,16 +61,16 @@ function adicionarItem(nome, preco) {
     } else {
         carrinho.push({ nome, preco: parseFloat(preco), quantidade: 1 });
     }
+    salvarCarrinho();
     atualizarCarrinho();
     mostrarToast(`${nome} adicionado ao carrinho!`);
 
-    
     contador.classList.remove('bump');
-    void contador.offsetWidth; // reflow
+    void contador.offsetWidth;
     contador.classList.add('bump');
 }
 
-
+// === CARRINHO: ATUALIZAR UI ===
 function atualizarCarrinho() {
     const totalItens = carrinho.reduce((acc, item) => acc + item.quantidade, 0);
     const totalPreco = carrinho.reduce((acc, item) => acc + item.preco * item.quantidade, 0);
@@ -86,104 +101,109 @@ function atualizarCarrinho() {
     `).join('');
 }
 
-
+// === CARRINHO: ALTERAR QUANTIDADE ===
 function alterarQtd(index, delta) {
     carrinho[index].quantidade += delta;
     if (carrinho[index].quantidade <= 0) {
         carrinho.splice(index, 1);
     }
+    salvarCarrinho();
     atualizarCarrinho();
 }
 
-
+// === BOTÕES COMPRAR ===
 document.querySelectorAll('.btn-comprar').forEach(btn => {
     btn.addEventListener('click', () => {
-        const nome = btn.dataset.nome;
-        const preco = btn.dataset.preco;
-        adicionarItem(nome, preco);
+        adicionarItem(btn.dataset.nome, btn.dataset.preco);
     });
 });
 
+// === CHECKOUT ===
+if (btnCheckout) {
+    btnCheckout.addEventListener('click', () => {
+        if (carrinho.length === 0) {
+            mostrarToast('Adicione produtos ao carrinho primeiro.');
+            return;
+        }
+        fecharCarrinho();
+        window.location.href = 'checkout.html';
+    });
+}
 
+// === TOAST ===
 let toastTimer;
 function mostrarToast(msg) {
     clearTimeout(toastTimer);
     toastMsg.textContent = msg;
     toast.classList.add('show');
-    toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2500);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-
-menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    mainNav.classList.toggle('open');
-    document.body.style.overflow = mainNav.classList.contains('open') ? 'hidden' : '';
-});
-
-
-mainNav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
-        mainNav.classList.remove('open');
-        document.body.style.overflow = '';
+// === MENU MOBILE ===
+if (menuToggle) {
+    menuToggle.addEventListener('click', () => {
+        menuToggle.classList.toggle('active');
+        mainNav.classList.toggle('open');
+        document.body.style.overflow = mainNav.classList.contains('open') ? 'hidden' : '';
     });
-});
 
+    mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            menuToggle.classList.remove('active');
+            mainNav.classList.remove('open');
+            document.body.style.overflow = '';
+        });
+    });
+}
+
+// === HEADER SCROLL ===
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
+    if (header) {
+        header.classList.toggle('scrolled', window.scrollY > 50);
     }
-
-    // Scroll to top button
-    if (window.scrollY > 400) {
-        scrollTopBtn.classList.add('visible');
-    } else {
-        scrollTopBtn.classList.remove('visible');
+    if (scrollTopBtn) {
+        scrollTopBtn.classList.toggle('visible', window.scrollY > 400);
     }
 });
 
-scrollTopBtn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-});
+// === SCROLL TO TOP ===
+if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
 
-
+// === ACTIVE NAV LINK ===
 const sections = document.querySelectorAll('section[id], main[id]');
 const navLinks = document.querySelectorAll('nav ul li a');
 
 window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
-        const top = section.offsetTop - 120;
-        if (window.scrollY >= top) {
+        if (window.scrollY >= section.offsetTop - 120) {
             current = section.getAttribute('id');
         }
     });
-
     navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-            link.classList.add('active');
-        }
+        link.classList.toggle('active', link.getAttribute('href') === `#${current}`);
     });
 });
 
+// === NEWSLETTER ===
+if (newsletterBtn) {
+    newsletterBtn.addEventListener('click', () => {
+        const email = emailInput.value.trim();
+        if (!email || !email.includes('@') || !email.includes('.')) {
+            mostrarToast('Por favor, insira um e-mail válido.');
+            emailInput.focus();
+            return;
+        }
+        mostrarToast('Inscrição realizada com sucesso!');
+        emailInput.value = '';
+    });
+}
 
-newsletterBtn.addEventListener('click', () => {
-    const email = emailInput.value.trim();
-    if (!email || !email.includes('@') || !email.includes('.')) {
-        mostrarToast('Por favor, insira um e-mail válido.');
-        emailInput.focus();
-        return;
-    }
-    mostrarToast('Inscrição realizada com sucesso!');
-    emailInput.value = '';
-});
-
-
+// === ANIMAÇÃO DE ENTRADA ===
 const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -200,13 +220,69 @@ document.querySelectorAll('.produto-card, .beneficio').forEach(el => {
     observer.observe(el);
 });
 
+// === USER AUTH STATE ===
+function verificarUsuario() {
+    const usuario = JSON.parse(localStorage.getItem('ph_usuario'));
 
-document.querySelector('.btn-checkout')?.addEventListener('click', () => {
-    mostrarToast('Redirecionando para o pagamento...');
-    setTimeout(() => {
-        fecharCarrinho();
-        carrinho = [];
-        atualizarCarrinho();
-        mostrarToast('Compra finalizada com sucesso! Obrigado!');
-    }, 1500);
-});
+    if (usuario) {
+        if (userName) userName.textContent = usuario.nome;
+        if (dropdownHeader) {
+            dropdownHeader.innerHTML = `
+                <strong>${usuario.nome} ${usuario.sobrenome}</strong>
+                <small>${usuario.email}</small>
+            `;
+        }
+        if (loginLink) loginLink.style.display = 'none';
+        if (logoutBtn) logoutBtn.style.display = 'flex';
+        if (meusPedidos) meusPedidos.style.display = 'flex';
+    } else {
+        if (userName) userName.textContent = 'Entrar';
+        if (dropdownHeader) dropdownHeader.innerHTML = '<p>Você não está logado</p>';
+        if (loginLink) loginLink.style.display = 'flex';
+        if (logoutBtn) logoutBtn.style.display = 'none';
+        if (meusPedidos) meusPedidos.style.display = 'none';
+    }
+}
+
+// User dropdown toggle
+if (userBtn) {
+    userBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        userDropdown.classList.toggle('open');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!userBtn.contains(e.target)) {
+            userDropdown.classList.remove('open');
+        }
+    });
+}
+
+// Logout
+if (logoutBtn) {
+    logoutBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        localStorage.removeItem('ph_usuario');
+        verificarUsuario();
+        userDropdown.classList.remove('open');
+        mostrarToast('Você saiu da sua conta.');
+    });
+}
+
+// Meus Pedidos
+if (meusPedidos) {
+    meusPedidos.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pedidos = JSON.parse(localStorage.getItem('ph_pedidos')) || [];
+        if (pedidos.length === 0) {
+            mostrarToast('Você ainda não tem pedidos.');
+        } else {
+            mostrarToast(`Você tem ${pedidos.length} pedido(s) registrado(s).`);
+        }
+        userDropdown.classList.remove('open');
+    });
+}
+
+// === INICIALIZAR ===
+atualizarCarrinho();
+verificarUsuario();
