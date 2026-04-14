@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProvedorHealth — Equipamentos Médicos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./src/css/estilo.css">
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <h1 class="logo">Provedor<span>Health</span></h1>
+        <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#hero" class="active">Home</a></li>
+                <li><a href="#produtos">Produtos</a></li>
+                <li><a href="#beneficios">Benefícios</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="carrinho" id="carrinhoBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+            </svg>
+            <span id="carrinho-contador">0</span>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            <p class="hero-tag">Qualidade & Confiança</p>
+            <h2>Equipamentos médicos<br>para quem <em>cuida</em>.</h2>
+            <p class="hero-desc">Produtos profissionais selecionados para estudantes e profissionais da saúde. Entrega rápida em todo o Brasil.</p>
+            <a href="#produtos" class="btn-hero">Ver Produtos</a>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-pulse"></div>
+            <svg class="hero-icon" viewBox="0 0 120 120" fill="none">
+                <path d="M60 20 L60 100 M20 60 L100 60" stroke="currentColor" stroke-width="8" stroke-linecap="round"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- PRODUTOS -->
+    <main id="produtos">
+        <div class="section-header">
+            <h2>Produtos em Destaque</h2>
+            <p>Seleção especial dos itens mais procurados por profissionais da saúde</p>
+        </div>
+        <section class="card">
+            <div class="produto-card" style="--delay:0">
+                <div class="img-wrapper">
+                    <img src="./src/assets/Imagem.jpg" alt="Estetoscópio profissional preto" loading="lazy">
+                    <span class="badge">Mais Vendido</span>
+                </div>
+                <article class="card-content">
+                    <h3>Estetoscópio</h3>
+                    <p class="desc">Acústica premium, membrana dupla. Ideal para ausculta cardíaca e pulmonar.</p>
+                    <p class="preco">R$ 189<small>,90</small></p>
+                    <button class="btn-comprar" data-nome="Estetoscópio" data-preco="189.90">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        Comprar
+                    </button>
+                </article>
+            </div>
+
+            <div class="produto-card" style="--delay:1">
+                <div class="img-wrapper">
+                    <img src="./src/assets/Imagem2.jpg" alt="Jaleco branco profissional" loading="lazy">
+                </div>
+                <article class="card-content">
+                    <h3>Jaleco</h3>
+                    <p class="desc">Tecido Oxford premium, corte slim. Conforto e elegância para o dia inteiro.</p>
+                    <p class="preco">R$ 129<small>,90</small></p>
+                    <button class="btn-comprar" data-nome="Jaleco" data-preco="129.90">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        Comprar
+                    </button>
+                </article>
+            </div>
+
+            <div class="produto-card" style="--delay:2">
+                <div class="img-wrapper">
+                    <img src="./src/assets/Imagem3.jpg" alt="Oxímetro de dedo digital" loading="lazy">
+                    <span class="badge novo">Novo</span>
+                </div>
+                <article class="card-content">
+                    <h3>Oxímetro</h3>
+                    <p class="desc">Leitura rápida de SpO2 e frequência cardíaca. Display LED brilhante.</p>
+                    <p class="preco">R$ 79<small>,90</small></p>
+                    <button class="btn-comprar" data-nome="Oxímetro" data-preco="79.90">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        Comprar
+                    </button>
+                </article>
+            </div>
+
+            <div class="produto-card" style="--delay:3">
+                <div class="img-wrapper">
+                    <img src="./src/assets/Imagem4.jpg" alt="Esfigmomanômetro aparelho de pressão" loading="lazy">
+                </div>
+                <article class="card-content">
+                    <h3>Esfigmomanômetro</h3>
+                    <p class="desc">Aparelho de pressão analógico com braçadeira adulto. Precisão clínica.</p>
+                    <p class="preco">R$ 249<small>,90</small></p>
+                    <button class="btn-comprar" data-nome="Esfigmomanômetro" data-preco="249.90">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        Comprar
+                    </button>
+                </article>
+            </div>
+
+            <div class="produto-card" style="--delay:4">
+                <div class="img-wrapper">
+                    <img src="./src/assets/Imagem5.png" alt="Scrub pijama cirúrgico" loading="lazy">
+                </div>
+                <article class="card-content">
+                    <h3>Scrub Cirúrgico</h3>
+                    <p class="desc">Conjunto calça e blusa. Tecido leve, respirável e antibacteriano.</p>
+                    <p class="preco">R$ 159<small>,90</small></p>
+                    <button class="btn-comprar" data-nome="Scrub Cirúrgico" data-preco="159.90">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                        Comprar
+                    </button>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <!-- BENEFÍCIOS -->
+    <section class="beneficios" id="beneficios">
+        <div class="beneficio">
+            <div class="beneficio-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+            </div>
+            <h3>Frete Grátis</h3>
+            <p>Em compras acima de R$ 299</p>
+        </div>
+        <div class="beneficio">
+            <div class="beneficio-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <h3>Garantia 1 Ano</h3>
+            <p>Todos os equipamentos</p>
+        </div>
+        <div class="beneficio">
+            <div class="beneficio-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            </div>
+            <h3>Anvisa Aprovado</h3>
+            <p>Produtos certificados</p>
+        </div>
+        <div class="beneficio">
+            <div class="beneficio-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </div>
+            <h3>Até 12x</h3>
+            <p>Parcele sem juros</p>
+        </div>
+    </section>
+
+    
+    <section class="contato" id="contato">
+        <h2>Fique por dentro das novidades</h2>
+        <p>Receba ofertas exclusivas e lançamentos direto no seu e-mail.</p>
+        <div class="newsletter-form">
+            <input type="email" placeholder="Seu melhor e-mail" id="emailInput">
+            <button id="newsletterBtn">Inscrever-se</button>
+        </div>
+    </section>
+
+  
+    <div class="cart-overlay" id="cartOverlay"></div>
+    <aside class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Seu Carrinho</h3>
+            <button class="cart-close" id="cartClose">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <p class="cart-empty">Seu carrinho está vazio</p>
+        </div>
+        <div class="cart-footer" id="cartFooter" style="display:none;">
+            <div class="cart-total">
+                <span>Total:</span>
+                <strong id="cartTotal">R$ 0,00</strong>
+            </div>
+            <button class="btn-checkout">Finalizar Compra</button>
+        </div>
+    </aside>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span id="toastMsg">Produto adicionado!</span>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 class="footer-logo">Provedor<span>Health</span></h4>
+                <p>Equipamentos médicos de qualidade para estudantes e profissionais da saúde desde 2020.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Links</h4>
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#produtos">Produtos</a></li>
+                    <li><a href="#beneficios">Benefícios</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Atendimento</h4>
+                <ul>
+                    <li>Seg–Sex: 9h às 18h</li>
+                    <li>contato@provedorhealth.com.br</li>
+                    <li>(11) 99999-0000</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ProvedorHealth — Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- SCROLL TO TOP -->
+    <button class="scroll-top" id="scrollTop" aria-label="Voltar ao topo">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+    </button>
+
+    <script src="./src/js/script.js"></script>
+</body>
+</html>
